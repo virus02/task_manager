@@ -1,0 +1,20 @@
+<h2>📋 All Tasks</h2>
+
+<div *ngIf="loading">Loading tasks...</div>
+
+<ul *ngIf="!loading && tasks.length > 0">
+  <li *ngFor="let task of tasks" class="task-card">
+    <h3>{{ task.title }} <span *ngIf="task.completed">✅</span></h3>
+    <p *ngIf="task.description">{{ task.description }}</p>
+    <small>
+      Category: {{ task.category || 'None' }} |
+      Priority: {{ task.priority }} |
+      Due: {{ task.dueDate | date:'shortDate' }}
+    </small>
+    <br />
+    <button [routerLink]="['/edit', task._id]">✏️ Edit</button>
+    <button (click)="deleteTask(task._id)">🗑️ Delete</button>
+  </li>
+</ul>
+
+<p *ngIf="!loading && tasks.length === 0">No tasks found.</p>

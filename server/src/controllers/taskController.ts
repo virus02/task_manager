@@ -4,7 +4,7 @@ import Task, { ITask } from '../models/Task';
 export const getTasks = async (req: Request, res: Response): Promise<void> => {
   try {
     const tasks: ITask[] = await Task.find();
-    res.status(200).json({ tasks });
+    res.status(200).json(tasks);
   } catch (err) {
     throw err;
   }

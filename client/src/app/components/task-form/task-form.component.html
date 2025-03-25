@@ -1,0 +1,32 @@
+<h2>{{ isEdit ? '✏️ Edit Task' : '➕ Add Task' }}</h2>
+
+<form (ngSubmit)="saveTask()" #taskForm="ngForm">
+  <label>Title:</label>
+  <input type="text" name="title" [(ngModel)]="task.title" required />
+
+  <label>Description:</label>
+  <textarea name="description" [(ngModel)]="task.description"></textarea>
+
+  <label>Category:</label>
+  <input type="text" name="category" [(ngModel)]="task.category" />
+
+  <label>Priority:</label>
+  <select name="priority" [(ngModel)]="task.priority">
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+  </select>
+
+  <label>Due Date:</label>
+  <input type="date" name="dueDate" [(ngModel)]="task.dueDate" />
+
+  <label>
+    <input type="checkbox" name="completed" [(ngModel)]="task.completed" />
+    Completed
+  </label>
+
+  <br />
+  <button type="submit" [disabled]="taskForm.invalid">
+    {{ isEdit ? 'Update' : 'Create' }}
+  </button>
+</form>
