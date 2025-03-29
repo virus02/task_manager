@@ -1,3 +1,28 @@
+.filters, .sorting {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  input, select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+
+  button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #eee;
+    cursor: pointer;
+
+    &:hover {
+      background: #ddd;
+    }
+  }
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -5,10 +30,42 @@ ul {
 
 .task-card {
   border: 1px solid #ddd;
+  border-left: 6px solid #007bff;
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1rem;
   background-color: #f9f9f9;
-  color: black;
+
+  h3 {
+    margin: 0 0 0.5rem;
+  }
+
+  small {
+    display: block;
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  button {
+    margin-right: 8px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+
+    &:last-child {
+      background-color: #dc3545;
+
+      &:hover {
+        background-color: #b02a37;
+      }
+    }
+  }
 }
-  

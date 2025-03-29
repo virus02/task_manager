@@ -1,32 +1,45 @@
 <h2>{{ isEdit ? '✏️ Edit Task' : '➕ Add Task' }}</h2>
 
-<form (ngSubmit)="saveTask()" #taskForm="ngForm">
-  <label>Title:</label>
-  <input type="text" name="title" [(ngModel)]="task.title" required />
+<form (ngSubmit)="saveTask()" #taskForm="ngForm" class="task-form">
 
-  <label>Description:</label>
-  <textarea name="description" [(ngModel)]="task.description"></textarea>
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput name="title" [(ngModel)]="task.title" required />
+  </mat-form-field>
 
-  <label>Category:</label>
-  <input type="text" name="category" [(ngModel)]="task.category" />
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput name="description" [(ngModel)]="task.description"></textarea>
+  </mat-form-field>
 
-  <label>Priority:</label>
-  <select name="priority" [(ngModel)]="task.priority">
-    <option value="low">Low</option>
-    <option value="medium">Medium</option>
-    <option value="high">High</option>
-  </select>
+  <mat-form-field appearance="outline">
+    <mat-label>Category</mat-label>
+    <input matInput name="category" [(ngModel)]="task.category" />
+  </mat-form-field>
 
-  <label>Due Date:</label>
-  <input type="date" name="dueDate" [(ngModel)]="task.dueDate" />
+  <mat-form-field appearance="outline">
+    <mat-label>Priority</mat-label>
+    <mat-select name="priority" [(ngModel)]="task.priority">
+      <mat-option value="low">Low</mat-option>
+      <mat-option value="medium">Medium</mat-option>
+      <mat-option value="high">High</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-  <label>
-    <input type="checkbox" name="completed" [(ngModel)]="task.completed" />
+  <mat-form-field appearance="outline">
+    <mat-label>Due Date</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="task.dueDate" name="dueDate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-checkbox name="completed" [(ngModel)]="task.completed">
     Completed
-  </label>
+  </mat-checkbox>
 
-  <br />
-  <button type="submit" [disabled]="taskForm.invalid">
-    {{ isEdit ? 'Update' : 'Create' }}
-  </button>
+  <div class="form-actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="taskForm.invalid">
+      {{ isEdit ? 'Update Task' : 'Create Task' }}
+    </button>
+  </div>
 </form>

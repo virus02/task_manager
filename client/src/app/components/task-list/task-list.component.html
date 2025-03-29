@@ -1,20 +1,63 @@
 <h2>📋 All Tasks</h2>
+<mat-form-field appearance="outline">
+  <mat-label>Search by title</mat-label>
+  <input matInput [ngModel]="searchTerm" (ngModelChange)="onSearchInput($event)" />
+</mat-form-field>
+
+<div class="filters">
+  <mat-form-field appearance="outline">
+    <mat-label>Priority</mat-label>
+    <mat-select [(ngModel)]="selectedPriority">
+      <mat-option value="">All Priorities</mat-option>
+      <mat-option *ngFor="let priority of priorities" [value]="priority">{{priority}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="selectedStatus">
+      <mat-option value="all">All Status</mat-option>
+      <mat-option *ngFor="let status of statuses" [value]="status">{{status}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="sorting">
+  <mat-form-field appearance="outline">
+    <mat-label>Sort By</mat-label>
+    <mat-select [(ngModel)]="sortBy">
+      <mat-option value="">None</mat-option>
+      <mat-option value="dueDate">Due Date</mat-option>
+      <mat-option value="priority">Priority</mat-option>
+      <mat-option value="createdAt">Created Date</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field appearance="outline">
+    <mat-label>Order</mat-label>
+    <mat-select [(ngModel)]="sortOrder" [disabled]="!sortBy">
+      <mat-option value="asc">Ascending</mat-option>
+      <mat-option value="desc">Descending</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <button mat-button (click)="clearSort()">Clear Sort</button>
+</div>
 
 <div *ngIf="loading">Loading tasks...</div>
 
-<ul *ngIf="!loading && tasks.length > 0">
-  <li *ngFor="let task of tasks" class="task-card">
-    <h3>{{ task.title }} <span *ngIf="task.completed">✅</span></h3>
-    <p *ngIf="task.description">{{ task.description }}</p>
-    <small>
-      Category: {{ task.category || 'None' }} |
-      Priority: {{ task.priority }} |
-      Due: {{ task.dueDate | date:'shortDate' }}
-    </small>
-    <br />
-    <button [routerLink]="['/edit', task._id]">✏️ Edit</button>
-    <button (click)="deleteTask(task._id)">🗑️ Delete</button>
-  </li>
-</ul>
+<mat-card *ngFor="let task of filteredTasks" class="task-card">
+  <mat-card-title>{{ task.title }} <span *ngIf="task.completed">✅</span></mat-card-title>
+  <mat-card-subtitle>
+    {{ task.category || 'No Category' }} • {{ task.priority | titlecase }} • Due: {{ task.dueDate | date:'shortDate' }}
+  </mat-card-subtitle>
+  <mat-card-content>
+    <p>{{ task.description }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" [routerLink]="['/edit', task._id]">Edit</button>
+    <button mat-raised-button color="warn" (click)="deleteTask(task._id)">Delete</button>
+  </mat-card-actions>
+</mat-card>
 
 <p *ngIf="!loading && tasks.length === 0">No tasks found.</p>

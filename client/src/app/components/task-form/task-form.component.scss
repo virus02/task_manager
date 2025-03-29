@@ -1,11 +1,14 @@
-form {
+.task-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-width: 400px;
-}
+  gap: 16px;
+  max-width: 500px;
 
-input, textarea, select {
-  padding: 5px;
+  mat-form-field {
+    width: 100%;
+  }
+
+  .form-actions {
+    margin-top: 16px;
+  }
 }
-  

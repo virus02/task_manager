@@ -29,6 +29,9 @@ export class TaskFormComponent {
       this.taskService.getTasks().subscribe(tasks => {
         const existingTask = tasks.find(task => task._id === taskId);
         if (existingTask) {
+          if (existingTask.dueDate) {
+            existingTask.dueDate = existingTask.dueDate.split('T')[0];
+          }
           this.task = { ...existingTask };
         }
       });
@@ -37,10 +40,16 @@ export class TaskFormComponent {
 
   saveTask(): void {
     if (this.isEdit && this.task._id) {
+      if (this.task.dueDate) {
+        this.task.dueDate = new Date(this.task.dueDate).toISOString(); // full ISO
+      }      
       this.taskService.updateTask(this.task._id, this.task).subscribe(() => {
         this.router.navigate(['/']);
       });
     } else {
+      if (this.task.dueDate) {
+        this.task.dueDate = new Date(this.task.dueDate).toISOString(); // full ISO
+      }      
       this.taskService.addTask(this.task).subscribe(() => {
         this.router.navigate(['/']);
       });
