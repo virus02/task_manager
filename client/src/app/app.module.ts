@@ -9,6 +9,9 @@ import { AppComponent } from "./app.component";
 import { TaskListComponent } from "./components/task-list/task-list.component";
 import { TaskFormComponent } from "./components/task-form/task-form.component";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -32,7 +35,14 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+      timeOut: 3000,
+      preventDuplicates: true,
+      closeButton: true
+    })
   ],
   declarations: [
     AppComponent,

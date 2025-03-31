@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Task } from '../../models/task.model';
 import { TaskService } from '../../services/task.service';
-import { ChangeDetectorRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
@@ -26,7 +25,7 @@ export class TaskListComponent {
   sortBy: 'dueDate' | 'priority' | 'createdAt' | '' = '';
   sortOrder: 'asc' | 'desc' = 'asc';
 
-  constructor(private taskService: TaskService, private cdr: ChangeDetectorRef) { }
+  constructor(private taskService: TaskService) { }
 
   ngOnInit() {
     this.searchSubject.next('');
@@ -39,7 +38,6 @@ export class TaskListComponent {
       next: (data) => {
         this.tasks = data;
         this.loading = false;
-        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading tasks: ', error);
